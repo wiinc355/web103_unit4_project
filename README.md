@@ -1,1 +1,37 @@
-# web103_unit4_project
+# WEB103 Project 4 - *DIY Delight*
+
+Submitted by: **Derrick Woodall**
+
+About this web app: **The application I am developing is a dynamic item personalization web app that allows users to create and customize their own unique products. Inspired by the growing demand for personalized items such as shoes, phone cases, and more, this app provides an interactive interface where users can select from multiple customizable features and options, with real-time visual updates reflecting their choices. Built using React and connected to a PostgreSQL database, the platform enables full CRUD functionality, allowing users to create, view, edit, and delete their custom items seamlessly. As users select different features, the total price updates dynamically, ensuring transparency and flexibility throughout the customization process. Additionally, the app includes validation to prevent invalid combinations, ensuring only viable custom items are saved, while offering a clean and intuitive experience for managing all created items.**
+
+Time spent: **14** hours
+
+## Required Features
+
+The following **required** functionality is completed:
+
+<!-- Make sure to check off completed functionality below -->
+- [ ] **The web app uses React to display data from the API.**
+- [ ] **The web app is connected to a PostgreSQL database, with an appropriately structured `CustomItem` table.**
+  - [ ]  **NOTE: Your walkthrough added to the README must include a view of your Render dashboard demonstrating that your Postgres database is available**
+  - [ ]  **NOTE: Your walkthrough added to the README must include a demonstration of your table contents. Use the psql command 'SELECT * FROM tablename;' to display your table contents.**
+- [ ] **Users can view **multiple** features of the `CustomItem` (e.g. car) they can customize, (e.g. wheels, exterior, etc.)**
+- [ ] **Each customizable feature has multiple options to choose from (e.g. exterior could be red, blue, black, etc.)**
+- [ ] **On selecting each option, the displayed visual icon for the `CustomItem` updates to match the option the user chose.**
+- [ ] **The price of the `CustomItem` (e.g. car) changes dynamically as different options are selected *OR* The app displays the total price of all features.**
+- [ ] **The visual interface changes in response to at least one customizable feature.**
+- [ ] **The user can submit their choices to save the item to the list of created `CustomItem`s.**
+- [ ] **If a user submits a feature combo that is impossible, they should receive an appropriate error message and the item should not be saved to the database.**
+- [ ] **Users can view a list of all submitted `CustomItem`s.**
+- [ ] **Users can edit a submitted `CustomItem` from the list view of submitted `CustomItem`s.**
+- [ ] **Users can delete a submitted `CustomItem` from the list view of submitted `CustomItem`s.**
+- [ ] **Users can update or delete `CustomItem`s that have been created from the detail page.**
+
+
+The following **optional** features are implemented:
+
+- [ ] Selecting particular options prevents incompatible options from being selected even before form submission
+
+The following **additional** features are implemented:
+
+- [ ] List anything else that you added to improve the site's functionality!
