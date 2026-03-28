@@ -37,16 +37,42 @@ const CarDetails = () => {
     if (!car) return <div>Car not found.</div>;
 
     return (
-        <div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h2>Car Details</h2>
-            <p><b>Make:</b> {car.make}</p>
-            <p><b>Model:</b> {car.model}</p>
-            <p><b>Color:</b> {car.color}</p>
-            <p><b>Price:</b> ${car.price}</p>
-            <p><b>Features:</b> {car.features ? JSON.stringify(car.features) : 'None'}</p>
-            <Link to={`/edit/${car.id}`}>Edit</Link>
-            {' '}<button onClick={handleDelete}>Delete</button>
-            {' '}<Link to="/customcars">Back to Cars</Link>
+                <div style={{
+                    background: 'rgba(0,0,0,0.7)',
+                    color: 'white',
+                    borderRadius: '10px',
+                    margin: '1rem 0',
+                    padding: '1.5rem',
+                    width: '100%',
+                    maxWidth: 400,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                }}>
+                    <div>
+                        <strong>Make:</strong> {car.make}
+                    </div>
+                    <div>
+                        <strong>Model:</strong> {car.model}
+                    </div>
+                    <div>
+                        <strong>Color:</strong> {car.color}
+                    </div>
+                    <div>
+                        <strong>Base Price:</strong> ${car.price}
+                    </div>
+                    <div>
+                        <strong>Features:</strong> {car.features ? JSON.stringify(car.features) : 'None'}
+                    </div>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginTop: '0.5rem' }}>
+                                      <Link to={`/edit/${car.id}`} style={{ minWidth: 80, padding: '2px 16px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', height: 36, lineHeight: '32px' }}>Edit</Link>
+                                      <button onClick={handleDelete} style={{ minWidth: 80, padding: '2px 16px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: 36, lineHeight: '32px' }}>Delete</button>
+                                      <Link to="/customcars" style={{ padding: '2px 24px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer', height: 36, lineHeight: '32px', whiteSpace: 'nowrap' }}>Back to Cars</Link>
+                                </div>
+                </div>
         </div>
     );
 };
