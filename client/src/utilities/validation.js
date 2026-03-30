@@ -1,7 +1,15 @@
-// Example: Validate feature combinations
+export function validateCar(car) {
+  if (car.exterior === 'red' && car.interior === 'suede') {
+    return 'Invalid combination: red + suede';
+  }
+  return null;
+}
+
+// Export isValidCombination for EditCar.jsx
 export function isValidCombination(features) {
-  // Add your custom validation logic here
-  // Example: if two features are incompatible, return false
-  // if (features.color === 'red' && features.wheels === 'gold') return false;
+  // Example: disallow red exterior with suede interior
+  if (features.exterior === 'red' && features.interior === 'suede') {
+    return false;
+  }
   return true;
 }

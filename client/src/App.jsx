@@ -5,13 +5,15 @@ import ViewCars from './pages/ViewCars'
 import EditCar from './pages/EditCar'
 import CreateCar from './pages/CreateCar'
 import CarDetails from './pages/CarDetails'
+import Home from './pages/home'
+import ManageCustomItems from './pages/ManageCustomItems'
 import './App.css'
 
 const App = () => {
   let element = useRoutes([
     {
       path: '/',
-      element: <CreateCar title='BOLT BUCKET | Customize' />
+      element: <Home title='BOLT BUCKET | Home' />
     },
     {
       path:'/customcars',
@@ -24,6 +26,10 @@ const App = () => {
     {
       path: '/edit/:id',
       element: <EditCar title='BOLT BUCKET | Edit' />
+    },
+    {
+      path: '/manage-custom-items',
+      element: <ManageCustomItems />
     }
   ])
 

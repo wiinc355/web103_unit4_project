@@ -3,7 +3,10 @@ import path from 'path'
 import favicon from 'serve-favicon'
 import dotenv from 'dotenv'
 
-// import the router from your routes file
+
+
+import carsRouter from './routes/carsRoutes.js';
+import customItemsRouter from './routes/customItemsRoutes.js';
 
 
 dotenv.config()
@@ -22,7 +25,10 @@ else if (process.env.NODE_ENV === 'production') {
     app.use(express.static('public'))
 }
 
-// specify the api path for the server to use
+
+
+app.use('/api', carsRouter);
+app.use('/api', customItemsRouter);
 
 
 if (process.env.NODE_ENV === 'production') {

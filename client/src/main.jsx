@@ -11,4 +11,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <App />
     </BrowserRouter>
   </React.StrictMode>
-)
+);
+console.log("REACT_APP_DEBUG: App loaded");
