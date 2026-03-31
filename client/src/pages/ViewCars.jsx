@@ -65,8 +65,7 @@ const ViewCars = () => {
                             <span style={{ display: 'inline-flex', gap: '0.25rem', marginLeft: '1rem' }}>
                                 <button onClick={() => window.location.href = `/customcars/${car.id}`} style={{ minWidth: 80, padding: '2px 16px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, border: 'none', cursor: 'pointer', height: 36, lineHeight: '32px', marginRight: 4, transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = '#0056b3'} onMouseOut={e => e.currentTarget.style.background = '#007bff'}>View</button>
                                 <button onClick={() => window.location.href = `/edit/${car.id}`} style={{ minWidth: 80, padding: '2px 16px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, border: 'none', cursor: 'pointer', height: 36, lineHeight: '32px', marginRight: 4, transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = '#0056b3'} onMouseOut={e => e.currentTarget.style.background = '#007bff'}>Edit</button>
-                                <button onClick={() => handleDelete(car.id)} style={{ minWidth: 80, padding: '2px 16px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, border: 'none', cursor: 'pointer', height: 36, lineHeight: '32px', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = '#0056b3'} onMouseOut={e => e.currentTarget.style.background = '#007bff'}>Delete</button>
-                            </span>
+                                   </span>
                         </li>
                     ))}
                 </ul>

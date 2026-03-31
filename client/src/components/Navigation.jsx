@@ -1,6 +1,7 @@
-import React from 'react'
-import '../App.css'
-import '../css/Navigation.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../App.css';
+import '../css/Navigation.css';
 
 const Navigation = () => {
     return (
@@ -10,13 +11,12 @@ const Navigation = () => {
             </ul>
 
             <ul>
-                <li><a href='/' role='button'>Customize</a></li>
-                <li><a href='/customcars' role='button'>View Cars</a></li>
-                <li><a href='/manage-custom-items' role='button'>Manage Custom Items</a></li>
+                <li><Link to='/' role='button'>Customize</Link></li>
+                <li><Link to='/customcars' role='button'>View Cars</Link></li>
+                <li><Link to='/manage-custom-items' role='button'>Manage Custom Items</Link></li>
             </ul>
-            
         </nav>
-    )
-}
+    );
+};
 
-export default Navigation
+export default Navigation;

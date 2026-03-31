@@ -83,7 +83,7 @@ const ManageCustomItems = () => {
     .filter(item => item.itemname.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div style={{ display: 'flex', height: '80vh', background: '#222', color: 'white', borderRadius: 10, margin: '2rem auto', maxWidth: 900, minWidth: 320 }}>
+    <div style={{ display: 'flex', height: '80vh', background: '#222', color: 'white', borderRadius: 10, margin: '2rem 0 2rem 3vw', maxWidth: 900, minWidth: 320, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
       {/* Left Navigation */}
       <div style={{ width: 180, background: '#181818', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, padding: '1.2rem 0.7rem', display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'stretch' }}>
         <h3 style={{ margin: '0 0 1rem 0', textAlign: 'center', fontWeight: 700, fontSize: '1.05rem' }}>Features</h3>
@@ -114,9 +114,9 @@ const ManageCustomItems = () => {
       {/* Right Panel */}
 
 
-      <div style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-          <h2 style={{ margin: 0 }}>Manage {selectedType.charAt(0).toUpperCase() + selectedType.slice(1)} Items</h2>
+      <div style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0, alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 8, width: '100%' }}>
+          <h2 style={{ margin: 0, textAlign: 'left', flex: 1 }}>Manage {selectedType.charAt(0).toUpperCase() + selectedType.slice(1)} Items</h2>
           <button onClick={() => { setAdding(true); setForm({ itemname: '', catagory: selectedType, price: 0, image: '' }); }} style={{ background: '#28a745', color: 'white', border: 'none', borderRadius: 4, padding: '0.5rem 1.2rem', fontWeight: 700, fontSize: '1rem', boxShadow: '0 2px 8px #000', cursor: 'pointer' }}>+ Add Item</button>
         </div>
         {error && <div style={{ color: 'red', marginBottom: 8 }}>{error}</div>}
@@ -148,9 +148,6 @@ const ManageCustomItems = () => {
         {adding && (
           <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
             <div style={{ background: '#222', color: 'white', borderRadius: 10, padding: 24, minWidth: 320, maxWidth: 370, boxShadow: '0 2px 16px #000', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              {form.image && (
-                <img src={form.image} alt={form.itemname} style={{ maxWidth: 180, maxHeight: 100, borderRadius: 8, marginBottom: 12, background: '#111', objectFit: 'contain', boxShadow: '0 2px 8px #000' }} />
-              )}
               <h3 style={{ marginBottom: 12 }}>Add New Item</h3>
               <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', alignItems: 'center' }}>
                 <label style={{ fontWeight: 600, width: '100%' }}>Name
@@ -160,14 +157,12 @@ const ManageCustomItems = () => {
                   <input name="price" type="number" value={form.price} onChange={handleFormChange} required style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: 6, borderRadius: 4, border: '1px solid #444', background: '#181818', color: '#fff' }} />
                 </label>
                 <label style={{ fontWeight: 600, width: '100%' }}>Category
-                  <select name="catagory" value={form.catagory} onChange={handleFormChange} style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: 6, borderRadius: 4, border: '1px solid #444', background: '#181818', color: '#fff' }}>
+                  <select name="catagory" value={form.catagory} onChange={handleFormChange} style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: 6, borderRadius: 4, border: '1px solid #444', background: '#181818', color: '#fff' }} required>
+                    <option value="" disabled>Select one</option>
                     {FEATURE_TYPES.map(type => (
                       <option key={type} value={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</option>
                     ))}
                   </select>
-                </label>
-                <label style={{ fontWeight: 600, width: '100%' }}>Image URL
-                  <input name="image" value={form.image || ''} onChange={handleFormChange} style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: 6, borderRadius: 4, border: '1px solid #444', background: '#181818', color: '#fff' }} placeholder="Paste image URL only" />
                 </label>
                 <div style={{ display: 'flex', flexDirection: 'row', gap: 8, marginTop: 8, width: '100%' }}>
                   <button type="submit" style={{ background: '#28a745', color: 'white', border: 'none', borderRadius: 4, padding: '0.65rem 0', fontWeight: 600, flex: 1 }}>Add</button>

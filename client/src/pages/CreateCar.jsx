@@ -52,16 +52,20 @@ function CreateCar() {
             width: '100vw',
             height: '100vh',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            background: '#222',
+            color: 'white',
         }}>
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                marginLeft: '3vw',
+                marginTop: '3vh',
             }}>
-                <h2 style={{ textAlign: 'center', width: '100%' }}>Create a New Car</h2>
+                <h2 style={{ textAlign: 'left', width: '100%' }}>Create a New Car</h2>
                 <form onSubmit={handleSubmit} style={{
                     background: 'rgba(0,0,0,0.7)',
                     color: 'white',
@@ -74,26 +78,26 @@ function CreateCar() {
                     flexDirection: 'column',
                     gap: '1rem',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
                 }}>
-                    <label style={{ width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <label style={{ width: '100%', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         Make:
-                        <input name="make" value={car.make} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem auto', textAlign: 'center' }} />
+                        <input name="make" value={car.make} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem 0', textAlign: 'left' }} />
                     </label>
-                    <label style={{ width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <label style={{ width: '100%', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         Model:
-                        <input name="model" value={car.model} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem auto', textAlign: 'center' }} />
+                        <input name="model" value={car.model} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem 0', textAlign: 'left' }} />
                     </label>
-                    <label style={{ width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <label style={{ width: '100%', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         Color:
-                        <input name="color" value={car.color} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem auto', textAlign: 'center' }} />
+                        <input name="color" value={car.color} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem 0', textAlign: 'left' }} />
                     </label>
-                    <label style={{ width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <label style={{ width: '100%', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         Base Price:
-                        <input name="price" type="number" value={car.price} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem auto', textAlign: 'center' }} />
+                        <input name="price" type="number" value={car.price} onChange={handleChange} required style={{ width: '90%', margin: '0.25rem 0', textAlign: 'left' }} />
                     </label>
                     {/* Add feature selectors here if needed */}
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginTop: '0.5rem', width: '100%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', gap: '0.75rem', marginTop: '0.5rem', width: '100%' }}>
                         <button
                             type="submit"
                             disabled={loading}
@@ -119,8 +123,8 @@ function CreateCar() {
                         <button type="button" onClick={() => navigate('/customcars')} style={{ minWidth: 80, padding: '2px 16px', fontSize: '0.9em', fontFamily: 'inherit', background: '#007bff', color: 'white', borderRadius: 4, border: 'none', cursor: 'pointer', height: 36, lineHeight: '32px', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = '#0056b3'} onMouseOut={e => e.currentTarget.style.background = '#007bff'}>Cancel</button>
                     </div>
                 </form>
-                {message && <div style={{ color: 'green', textAlign: 'center', marginTop: '1rem' }}>{message}</div>}
-                {error && <div style={{ color: 'red', textAlign: 'center', marginTop: '1rem' }}>{error}</div>}
+                {message && <div style={{ color: 'green', textAlign: 'left', marginTop: '1rem' }}>{message}</div>}
+                {error && <div style={{ color: 'red', textAlign: 'left', marginTop: '1rem' }}>{error}</div>}
             </div>
         </div>
     );

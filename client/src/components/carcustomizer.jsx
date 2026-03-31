@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import Navigation from './Navigation';
+import backgroundImg from '../assets/background.jpg';
+import { getCarsFeatureImages } from '../utilities/carsFeatureImages';
 import { useNavigate } from 'react-router-dom'
 import { createCar, getAllCars, updateCar } from '../services/CarsAPI'
 import CarPreview from './carpreview'
@@ -34,6 +37,7 @@ function CarCustomizer({ onCarCreated }) {
     convertible: []
   });
   const navigate = useNavigate();
+  const [carsFeatureImages, setCarsFeatureImages] = useState({});
   // Fetch options and cars
   useEffect(() => {
     async function fetchOptionsAndCars() {
@@ -67,6 +71,9 @@ function CarCustomizer({ onCarCreated }) {
       try {
         const carList = await getAllCars();
         setCars(carList);
+        // Fetch feature images for all cars
+        const images = await getCarsFeatureImages(carList);
+        setCarsFeatureImages(images);
         setCarsLoading(false);
       } catch (err) {
         setCarsError(err.message);
@@ -82,6 +89,9 @@ function CarCustomizer({ onCarCreated }) {
     try {
       const carList = await getAllCars();
       setCars(carList);
+      // Update feature images after car list changes
+      const images = await getCarsFeatureImages(carList);
+      setCarsFeatureImages(images);
       setCarsLoading(false);
     } catch (err) {
       setCarsError(err.message);
@@ -213,80 +223,112 @@ function CarCustomizer({ onCarCreated }) {
   };
 
   return (
-    <div style={{ width: '100vw', minHeight: '100vh', background: '#222', color: 'white', display: 'flex', flexDirection: 'column' }}>
+    <div style={{
+      width: '100vw',
+      minHeight: '100vh',
+      background: `#222 url(${backgroundImg}) center center/cover no-repeat`,
+      color: 'white',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start'
+    }}>
       {/* Car List Section */}
-      <div style={{ background: '#181818', padding: '1.5rem 2rem 1rem 2rem', borderBottom: '1px solid #444' }}>
-        <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.3rem', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase' }}>CUSTOMIZE CARS</h2>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+      <div style={{ background: 'rgba(0,0,0,0.10)', padding: '1.5rem 2rem 1rem 2rem', borderBottom: '1px solid #444', alignSelf: 'flex-start', width: '100%', maxWidth: 1200 }}>
+        <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.3rem', marginBottom: 10, letterSpacing: 1, textTransform: 'uppercase', textAlign: 'left' }}>CUSTOMIZE CARS</h2>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          marginBottom: 12,
+          width: 520,
+          maxWidth: '100%'
+        }}>
           <input
             type="text"
             placeholder="Search cars..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             style={{
-              marginLeft: 0,
-              marginRight: 16,
-              padding: '6px 12px',
+              padding: '0 12px',
               borderRadius: 6,
               border: '1px solid #555',
-              background: '#222',
-              color: 'white',
+              background: '#f8f3f3',
+              color: 'black',
               fontSize: '1rem',
               outline: 'none',
-              width: 200
+              width: 400,
+              height: 44,
+              boxSizing: 'border-box',
+              display: 'block',
             }}
           />
           <button
-            onClick={openAddCarModal}
+            onClick={() => setSearch('')}
             style={{
-              marginLeft: 0,
-              background: '#007bff',
-              color: 'white',
-              border: 'none',
+              marginLeft: 4,
+              background: '#eee',
+              color: '#222',
+              border: '1px solid #bbb',
               borderRadius: 6,
-              padding: '8px 18px',
-              fontWeight: 700,
+              padding: '0 16px',
+              height: 38,
+              fontWeight: 600,
               fontSize: '1rem',
               cursor: 'pointer',
-              boxShadow: '0 1px 4px #0003',
-              transition: 'background 0.2s'
+              transition: 'background 0.2s',
             }}
+            disabled={!search}
+            title="Clear search"
           >
-            Add Car
+            Clear
           </button>
         </div>
         <div style={{ color: '#ffc107', fontSize: '1rem', marginBottom: 10, marginLeft: 2 }}>
           Note: To modify and add features, click on the Car name link.
         </div>
         {carsLoading ? <div>Loading cars...</div> : carsError ? <div style={{ color: 'red' }}>{carsError}</div> : (
-          <table style={{ width: '100%', color: 'white', background: 'none', borderCollapse: 'collapse', marginTop: 8 }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid #444' }}>
-                <th style={{ textAlign: 'left', padding: 4 }}>Name</th>
-                <th style={{ textAlign: 'left', padding: 4 }}>Price</th>
-                <th style={{ textAlign: 'left', padding: 4 }}>Features</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cars
-                .filter(car =>
-                  !search ||
-                  (car.make && car.make.toLowerCase().includes(search.toLowerCase())) ||
-                  (car.model && car.model.toLowerCase().includes(search.toLowerCase()))
-                )
-                .map(car => (
-                  <tr key={car.id} style={{ borderBottom: '1px solid #333' }}>
-                    <td style={{ padding: 4 }}>
-                      <a href="#" style={{ color: '#4af', textDecoration: 'underline', cursor: 'pointer', fontWeight: 600 }} onClick={e => { e.preventDefault(); openEditModal(car); }}>{car.make} {car.model}</a>
-                    </td>
-                    <td style={{ padding: 4 }}>${car.price}</td>
-                    <td style={{ padding: 4, fontSize: '0.98em' }}>
-                      Roof: {car.roof || '-'}, Wheels: {car.wheels || '-'}, Interior: {car.interior || '-'}, Exterior: {car.exterior || '-'}, Convertible: {car.convertible || '-'}
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <table style={{ minWidth: 600, maxWidth: 900, margin: '0 auto', color: 'white', background: 'rgba(30,30,30,0.35)', borderCollapse: 'separate', borderSpacing: 0, borderRadius: 16, marginTop: 24, overflow: 'hidden', tableLayout: 'auto', border: 'none', boxShadow: 'none' }}>
+              <thead>
+                <tr style={{ borderBottom: 'none', background: 'transparent' }}>
+                  <th style={{ textAlign: 'left', padding: '16px 8px', fontWeight: 700, fontSize: '1.1rem', letterSpacing: 1, width: 'auto', minWidth: 120, maxWidth: 700 }}>Name</th>
+                  <th style={{ textAlign: 'center', padding: '16px 8px', fontWeight: 700, fontSize: '1.1rem', letterSpacing: 1 }}>Price</th>
+                  <th style={{ textAlign: 'center', padding: '16px 8px', fontWeight: 700, fontSize: '1.1rem', letterSpacing: 1 }}>Features</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cars
+                  .filter(car =>
+                    !search ||
+                    (car.make && car.make.toLowerCase().includes(search.toLowerCase())) ||
+                    (car.model && car.model.toLowerCase().includes(search.toLowerCase()))
+                  )
+                  .map(car => (
+                    <tr key={car.id} style={{ borderBottom: 'none', background: 'transparent', transition: 'background 0.2s' }}>
+                      <td style={{ padding: '18px 8px', textAlign: 'left', fontWeight: 600, fontSize: '1.08rem', whiteSpace: 'normal', wordBreak: 'break-word', minWidth: 120, maxWidth: 700 }}>
+                        <a href="#" style={{ color: '#4af', textDecoration: 'underline', cursor: 'pointer', fontWeight: 700, fontSize: '1.08rem', whiteSpace: 'normal', wordBreak: 'break-word', display: 'block', minWidth: 0, width: '100%', maxWidth: 700 }} onClick={e => { e.preventDefault(); openEditModal(car); }}>{car.make} {car.model}</a>
+                      </td>
+                      <td style={{ padding: '18px 8px', textAlign: 'center', fontWeight: 600, fontSize: '1.08rem' }}>${car.price}</td>
+                      <td style={{ padding: '18px 8px', textAlign: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', gap: 14, alignItems: 'center', justifyContent: 'center' }}>
+                          {['roof', 'wheels', 'exterior', 'interior', 'convertible'].map(type => {
+                            const img = carsFeatureImages[car.id]?.[type];
+                            const featureName = car[type];
+                            return img ? (
+                              <span key={type} style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+                                <img src={img} alt={type} style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 10, border: '2px solid #444', background: '#222', boxShadow: '0 1px 6px #0006', flexShrink: 0 }} />
+                                <span style={{ color: '#fff', fontWeight: 500, fontSize: '1.02em', textTransform: 'capitalize', whiteSpace: 'normal', wordBreak: 'break-word', maxWidth: 160, flex: 1 }}>{featureName}</span>
+                              </span>
+                            ) : null;
+                          })}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         )}
         {/* Add Car Modal */}
         {addModalOpen && (
@@ -311,43 +353,7 @@ function CarCustomizer({ onCarCreated }) {
             </div>
           </div>
         )}
-        {/* Action Menu */}
-        <div style={{ display: 'flex', gap: 10, marginBottom: 10 }}>
-          <button style={{ background: '#444', color: 'white', border: 'none', borderRadius: 4, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>View</button>
-          <button style={{ background: '#007bff', color: 'white', border: 'none', borderRadius: 4, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Edit</button>
-          <button style={{ background: '#dc3545', color: 'white', border: 'none', borderRadius: 4, padding: '0.5rem 1.2rem', fontWeight: 600, cursor: 'pointer' }}>Delete</button>
-        </div>
-        {/* Car List Table */}
-        <table style={{ width: '100%', color: 'white', background: 'none', borderCollapse: 'collapse', marginTop: 8 }}>
-          <thead>
-            <tr style={{ borderBottom: '1px solid #444' }}>
-              <th style={{ textAlign: 'left', padding: 4 }}></th>
-              <th style={{ textAlign: 'left', padding: 4 }}>Name</th>
-              <th style={{ textAlign: 'left', padding: 4 }}>Color</th>
-              <th style={{ textAlign: 'left', padding: 4 }}>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cars
-              .filter(car =>
-                !search ||
-                (car.make && car.make.toLowerCase().includes(search.toLowerCase())) ||
-                (car.model && car.model.toLowerCase().includes(search.toLowerCase()))
-              )
-              .map(car => (
-                <tr key={car.id} style={{ borderBottom: '1px solid #333' }}>
-                  <td style={{ padding: 4 }}>
-                    <input type="checkbox" style={{ transform: 'scale(1.2)' }} />
-                  </td>
-                  <td style={{ padding: 4 }}>
-                    <a href="#" style={{ color: '#4af', textDecoration: 'underline', cursor: 'pointer', fontWeight: 600 }} onClick={e => { e.preventDefault(); openEditModal(car); }}>{car.make} {car.model}</a>
-                  </td>
-                  <td style={{ padding: 4 }}>{car.exterior || '-'}</td>
-                  <td style={{ padding: 4 }}>${car.price}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+   
       </div>
             {/* Edit Modal */}
       {editModalCar && (

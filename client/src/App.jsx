@@ -1,13 +1,16 @@
-import React from 'react'
-import { useRoutes } from 'react-router-dom'
-import Navigation from './components/Navigation'
-import ViewCars from './pages/ViewCars'
-import EditCar from './pages/EditCar'
-import CreateCar from './pages/CreateCar'
-import CarDetails from './pages/CarDetails'
-import Home from './pages/home'
-import ManageCustomItems from './pages/ManageCustomItems'
-import './App.css'
+
+import React from 'react';
+import { useRoutes } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import ViewCars from './pages/ViewCars';
+import EditCar from './pages/EditCar';
+import CreateCar from './pages/CreateCar';
+import CarDetails from './pages/CarDetails';
+import Home from './pages/home';
+import ManageCustomItems from './pages/ManageCustomItems';
+import Login from './pages/Login';
+import RequireAuth from './pages/RequireAuth';
+import './App.css';
 
 const App = () => {
   let element = useRoutes([
@@ -29,9 +32,17 @@ const App = () => {
     },
     {
       path: '/manage-custom-items',
-      element: <ManageCustomItems />
+      element: (
+        <RequireAuth>
+          <ManageCustomItems />
+        </RequireAuth>
+      )
+    },
+    {
+      path: '/login',
+      element: <Login />
     }
-  ])
+  ]);
 
   return (
     <div className='app'>
