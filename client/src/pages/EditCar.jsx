@@ -53,7 +53,7 @@ const EditCar = () => {
     if (!car) return <div>Car not found.</div>;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
             <h2>Edit Car</h2>
             <form onSubmit={handleSubmit} style={{
                 background: 'rgba(0,0,0,0.7)',
@@ -70,19 +70,26 @@ const EditCar = () => {
             }}>
                 <label>
                     Make:
-                    <input name="make" value={car.make} onChange={handleChange} required />
+                    <input name="make" value={car.make} onChange={handleChange} required style={{ color: 'white', background: '#222', border: '1px solid #555' }} />
                 </label>
                 <label>
                     Model:
-                    <input name="model" value={car.model} onChange={handleChange} required />
+                    <input name="model" value={car.model} onChange={handleChange} required style={{ color: 'white', background: '#222', border: '1px solid #555' }} />
                 </label>
                 <label>
                     Color:
-                    <input name="color" value={car.color} onChange={handleChange} required />
+                    <select name="color" value={car.color} onChange={handleChange} required style={{ color: 'white', background: '#222', border: '1px solid #555' }}>
+                        <option value="Blue">Blue</option>
+                        <option value="Red">Red</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="White">White</option>
+                        <option value="Black">Black</option>
+                        <option value="Gray">Gray</option>
+                    </select>
                 </label>
                 <label>
                     Base Price:
-                    <input name="price" type="number" value={car.price} onChange={handleChange} required />
+                    <input name="price" type="number" value={car.price} onChange={handleChange} required style={{ color: 'white', background: '#222', border: '1px solid #555' }} />
                 </label>
                 {/* Add feature editors here if needed */}
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', marginTop: '0.5rem' }}>

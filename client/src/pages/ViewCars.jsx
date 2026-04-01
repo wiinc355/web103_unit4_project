@@ -41,19 +41,19 @@ const ViewCars = () => {
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem' }}>
             <h2>All Cars</h2>
             {cars.length === 0 ? (
                 <p>No cars found.</p>
             ) : (
-                <ul style={{ listStyle: 'none', padding: 0, width: '100%', maxWidth: 500 }}>
+                <ul style={{ listStyle: 'none', padding: 0, width: '100%', maxWidth: 950 }}>
                     {cars.map(car => (
                         <li key={car.id} style={{
                             background: 'rgba(0,0,0,0.7)',
                             color: 'white',
                             borderRadius: '10px',
                             margin: '1rem 0',
-                            padding: '1rem',
+                            padding: '1rem 1.25rem',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',

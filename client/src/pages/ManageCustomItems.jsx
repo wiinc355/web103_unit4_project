@@ -31,6 +31,12 @@ const ManageCustomItems = () => {
     fetchItems();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('isLoggedIn');
+    };
+  }, []);
+
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this custom item?')) return;
     try {
@@ -83,7 +89,7 @@ const ManageCustomItems = () => {
     .filter(item => item.itemname.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div style={{ display: 'flex', height: '80vh', background: '#222', color: 'white', borderRadius: 10, margin: '2rem 0 2rem 3vw', maxWidth: 900, minWidth: 320, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+    <div style={{ display: 'flex', height: '80vh', background: '#222', color: 'white', borderRadius: 10, margin: '2rem auto', width: '100%', maxWidth: 900, minWidth: 320, alignItems: 'flex-start', justifyContent: 'center' }}>
       {/* Left Navigation */}
       <div style={{ width: 180, background: '#181818', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, padding: '1.2rem 0.7rem', display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'stretch' }}>
         <h3 style={{ margin: '0 0 1rem 0', textAlign: 'center', fontWeight: 700, fontSize: '1.05rem' }}>Features</h3>

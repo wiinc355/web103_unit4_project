@@ -7,6 +7,7 @@ import '../App.css';
 const CarDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const featureTypes = ['roof', 'wheels', 'exterior', 'interior', 'convertible'];
     const [car, setCar] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -17,7 +18,15 @@ const CarDetails = () => {
             .then(async data => {
                 setCar(data);
                 // Fetch feature images
-                const images = await getFeatureImages(data);
+                const normalizedForImages = {
+                    ...data,
+                    roof: data.roof || data.features?.roof || '',
+                    wheels: data.wheels || data.features?.wheels || '',
+                    exterior: data.exterior || data.features?.exterior || '',
+                    interior: data.interior || data.features?.interior || '',
+                    convertible: data.convertible || data.features?.convertible || ''
+                };
+                const images = await getFeatureImages(normalizedForImages);
                 setFeatureImages(images);
                 setLoading(false);
             })
@@ -40,6 +49,18 @@ const CarDetails = () => {
     if (loading) return <div>Loading car details...</div>;
     if (error) return <div>Error: {error}</div>;
     if (!car) return <div>Car not found.</div>;
+
+    const getFeatureValue = (type) => {
+        const directValue = car[type];
+        if (directValue !== undefined && directValue !== null && String(directValue).trim() !== '') {
+            return String(directValue);
+        }
+        const nestedValue = car.features?.[type];
+        if (nestedValue !== undefined && nestedValue !== null && String(nestedValue).trim() !== '') {
+            return String(nestedValue);
+        }
+        return null;
+    };
 
     return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -70,7 +91,17 @@ const CarDetails = () => {
                         <strong>Base Price:</strong> ${car.price}
                     </div>
                                         <div>
-                                                <strong>Features:</strong> {car.features ? JSON.stringify(car.features) : 'None'}
+                                                <strong>Features:</strong>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                                                    {featureTypes.map(type => {
+                                                        const value = getFeatureValue(type);
+                                                        return value ? (
+                                                            <span key={type} style={{ background: '#2a2a2a', border: '1px solid #555', borderRadius: 16, padding: '4px 10px', fontSize: '0.9rem', textTransform: 'capitalize' }}>
+                                                                {type}: {value}
+                                                            </span>
+                                                        ) : null;
+                                                    })}
+                                                </div>
                                         </div>
                                         {/* Show feature images */}
                                         {Object.keys(featureImages).length > 0 && (
@@ -79,7 +110,10 @@ const CarDetails = () => {
                                                                                                 <div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem', marginTop: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
                                                                                                         {Object.entries(featureImages).map(([type, feat]) => (
                                                                                                                 feat.image ? (
-                                                                                                                    <img key={type} src={feat.image} alt={feat.name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8, border: '1px solid #444', background: '#222' }} />
+                                                                                                                    <div key={type} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                                                                                                                        <img src={feat.image} alt={feat.name || type} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8, border: '1px solid #444', background: '#222' }} />
+                                                                                                                        <span style={{ fontSize: '0.8rem', color: '#ddd', textTransform: 'capitalize' }}>{feat.name || getFeatureValue(type) || type}</span>
+                                                                                                                    </div>
                                                                                                                 ) : null
                                                                                                         ))}
                                                                                                 </div>

@@ -23,6 +23,10 @@ const App = () => {
       element: <ViewCars title='BOLT BUCKET | Custom Cars' />
     },
     {
+      path: '/createcar',
+      element: <CreateCar title='BOLT BUCKET | Create Car' />
+    },
+    {
       path: '/customcars/:id',
       element: <CarDetails title='BOLT BUCKET | View' />
     },
