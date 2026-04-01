@@ -39,7 +39,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src="https://github.com/wiinc355/web103_unit4_project.git/DIY-Delight-My-Walkthough.gif" width="700">
+<img src="https://raw.githubusercontent.com/wiinc355/web103_unit4_project/refs/heads/main/DIY-Delight-My-Walkthough.gif" width="700">
 <img src='https://raw.githubusercontent.com/wiinc355/web103_unit4_project/refs/heads/main/DIY-Delight-My-Walkthough-A.png' alt='Video Walkthrough' />
 <img src='https://raw.githubusercontent.com/wiinc355/web103_unit4_project/refs/heads/main/DIY-Delight-My-Walkthough-B.png' alt='Video Walkthrough' />
 
